@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { supabase } from "./supabaseClient";
+import Info from "./pages/info";
 
 function App() {
 
@@ -19,6 +20,10 @@ function App() {
   return (
     <div>
       <h1>App de Películas</h1>
+
+      {/* Pantalla informativa */}
+      <Info />
+
     </div>
   );
 }

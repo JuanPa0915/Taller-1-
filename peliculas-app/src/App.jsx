@@ -1,28 +1,87 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "./supabaseClient";
 import Info from "./pages/info";
+import Auth from "./pages/Auth";
+import "./styles.css";
 
 function App() {
 
+  const [session, setSession] = useState(null);
+  const [mostrarInfo, setMostrarInfo] = useState(true);
+  const [peliculas, setPeliculas] = useState([]);
+
   useEffect(() => {
+
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
     obtenerPeliculas();
+
   }, []);
 
   async function obtenerPeliculas() {
+
     const { data, error } = await supabase
       .from("movies")
       .select("*");
 
-    console.log("Peliculas:", data);
-    console.log("Error:", error);
+    if (!error) {
+      setPeliculas(data);
+    }
+
+  }
+
+  async function cerrarSesion() {
+    await supabase.auth.signOut();
+    setSession(null);
+  }
+
+  if (!session) {
+    return <Auth />;
   }
 
   return (
     <div>
-      <h1>App de Películas</h1>
 
-      {/* Pantalla informativa */}
-      <Info />
+      {mostrarInfo && (
+        <Info cerrar={() => setMostrarInfo(false)} />
+      )}
+
+      <button className="logoutButton" onClick={cerrarSesion}>
+        Cerrar sesión
+      </button>
+
+      <header className="header">
+        <h1>Catálogo de Películas</h1>
+      </header>
+
+      <div className="contenedorPeliculas">
+
+        {peliculas.map((pelicula) => (
+
+          <div className="tarjetaPelicula" key={pelicula.id}>
+
+            <img
+              src={pelicula.Imagen}
+              alt={pelicula.Nombre}
+            />
+
+            <h3>{pelicula.Nombre}</h3>
+
+            <p>{pelicula["Año"]}</p>
+
+            <p>{pelicula.Genero}</p>
+
+          </div>
+
+        ))}
+
+      </div>
 
     </div>
   );

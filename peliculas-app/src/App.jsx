@@ -66,11 +66,10 @@ function App() {
 
           <div className="tarjetaPelicula" key={pelicula.id}>
 
-            <img
-              src={pelicula.Imagen}
-              alt={pelicula.Nombre}
-            />
-
+          <img
+  src={pelicula.Imagen || "https://picsum.photos/300/450"}
+  alt={pelicula.Nombre}
+/>
             <h3>{pelicula.Nombre}</h3>
 
             <p>{pelicula["Año"]}</p>

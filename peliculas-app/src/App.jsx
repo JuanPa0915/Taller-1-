@@ -16,13 +16,20 @@ function App() {
       setSession(data.session);
     });
 
-    supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
 
-    obtenerPeliculas();
+    return () => subscription.unsubscribe();
 
   }, []);
+
+  useEffect(() => {
+    if (session) {
+      obtenerPeliculas();
+    }
+  }, [session]);
+
 
   async function obtenerPeliculas() {
 

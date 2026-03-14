@@ -125,47 +125,96 @@ body{
 }
 
 .authContainer{
-
-  width:350px;
-
-  display:flex;
-  flex-direction:column;
-
-  gap:20px;
-
-  background:#181818;
-  padding:40px;
-  border-radius:10px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: rgba(24, 24, 24, 0.95);
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
-.authContainer h2{
-  text-align:center;
-  color:#e50914;
+.authHeader{
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.authHeader h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: #e50914;
+}
+
+.authHeader p {
+  font-size: 0.9rem;
+  color: #aaa;
 }
 
 .authContainer input{
-  padding:12px;
-  border:none;
-  border-radius:6px;
-  background:#2a2a2a;
-  color:white;
+  padding: 15px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #232323;
+  color: white;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.authContainer input:focus {
+  outline: none;
+  border-color: #e50914;
 }
 
 .authContainer input::placeholder{
-  color:#bbb;
+  color:#666;
 }
 
 .authContainer button{
-  padding:12px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:16px;
-  background:#e50914;
-  color:white;
-  transition:0.2s;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  background: #e50914;
+  color: white;
+  transition: all 0.3s;
 }
 
-.authContainer button:hover{
-  background:#b20710;
+.authContainer button:hover:not(:disabled){
+  background: #ff0a16;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+}
+
+.authContainer button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.authToggle {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.toggleLink {
+  background: none !important;
+  border: none !important;
+  color: #e50914 !important;
+  padding: 0 !important;
+  margin-left: 8px !important;
+  font-size: 0.9rem !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.toggleLink:hover {
+  text-decoration: underline;
 }
